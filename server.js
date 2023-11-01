@@ -19,3 +19,17 @@ app.use(express.json());
 
 //middleware
 app.use(express.static("./Develop/public"));
+
+// creating a route for api/notes=the 'get' request
+// creates a readFileAsync function, which the file will be able to be read or not. If not, it will give an error.
+// the parse converts into a json string
+// helps us change the file the data into json
+app.get("./api/notes", function(req, res) {
+    readFileAsync("./Develop/db/db.json", "uts8").then(function(data) {
+        notes = [].concat(JSON.parse(data))
+        res.json(notes);
+    })
+});
+
+
+

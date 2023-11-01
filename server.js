@@ -62,3 +62,19 @@ app.delete("/api/notes:id", function(req, res) {
     })
 })
 
+// first get request gives access to the notes route, then the index.html, then another other paths that have not been specified.
+app.get("/notes", function(req, res) {
+    res.sendFile(path.join(__dirname, "./Develop/public/notes.html"));
+});
+
+app.get("/", function(req, res) {
+    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
+});
+
+app.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
+});
+
+app.listen(PORT, function() {
+    console.log("App Listening on PORT " + PORT);
+});

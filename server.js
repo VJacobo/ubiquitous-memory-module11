@@ -44,3 +44,21 @@ app.post("/api/notes", function(req, res) {
    })
 });
 
+// Note delete request function
+app.delete("/api/notes:id", function(req, res) {
+    const idToDelete = parseInt(req.params.id);
+    readFileAsync("./Develop/db/db.json", "utf8").then(function(data) {
+        const notes = [].concat(JSON.parse(data));
+        const newNotes = []
+        for (let i= 0; i<notes.length; i++) {
+            if(idToDelete !== notes[i].id) {
+                newNotes.push(notes[i])
+            }
+        }
+        return newNotes
+    }).then(function(notes) {
+        writeFilesAsync("./Develop/db/db.json", JSON.stringify(notes))
+        res.send('Saved!!');
+    })
+})
+
